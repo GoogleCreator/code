@@ -1,6 +1,8 @@
 local Players = game:GetService("Players")
 local ReplicatedStorage = game:GetService("ReplicatedStorage")
 local Workspace = game:GetService("Workspace")
+local VirtualUser = game:GetService("VirtualUser")
+
 local LocalPlayer = Players.LocalPlayer
 
 local togs = {
@@ -1063,6 +1065,11 @@ spawnPos.CFrame = LocalPlayer.SpawnPos.Value + Vector3.new(0, 0, 9)
 
 pcall(updateStatsLabels)
 pcall(updateMobLabels)
+
+LocalPlayer.Idled:Connect(function()
+    VirtualUser:CaptureController()
+    VirtualUser:ClickButton2(Vector2.new())
+end)
 
 task.spawn(function()
     while task.wait() do
